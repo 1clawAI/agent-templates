@@ -1,0 +1,110 @@
+name: Validate Templates
+
+on:
+  pull_request:
+    paths:
+      - 'templates/**'
+      - 'registry.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'templates/**'
+      - 'registry.yaml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Validate template manifests
+        run: |
+          FAILED=0
+          for dir in templates/*/; do
+            name=$(basename "$dir")
+            manifest="$dir/template.yaml"
+
+            if [ ! -f "$manifest" ]; then
+              echo "FAIL: $name — missing template.yaml"
+              FAILED=$((FAILED + 1))
+              continue
+            fi
+
+            # Check required fields
+            for field in name display_name version description author language; do
+              val=$(yq ".$field" "$manifest" 2>/dev/null)
+              if [ -z "$val" ] || [ "$val" = "null" ]; then
+                echo "FAIL: $name — missing required field '$field'"
+                FAILED=$((FAILED + 1))
+              fi
+            done
+
+            # Check name matches directory
+            yaml_name=$(yq '.name' "$manifest")
+            if [ "$yaml_name" != "$name" ]; then
+              echo "FAIL: $name — template.yaml name '$yaml_name' does not match directory"
+              FAILED=$((FAILED + 1))
+            fi
+
+            # Check language is valid
+            lang=$(yq '.language' "$manifest")
+            if [ "$lang" != "python" ] && [ "$lang" != "node" ]; then
+              echo "FAIL: $name — language must be 'python' or 'node', got '$lang'"
+              FAILED=$((FAILED + 1))
+            fi
+
+            # Check Dockerfile exists
+            if [ ! -f "$dir/Dockerfile" ]; then
+              echo "FAIL: $name — missing Dockerfile"
+              FAILED=$((FAILED + 1))
+            fi
+
+            # Check entrypoint exists
+            if [ ! -f "$dir/entrypoint.sh" ]; then
+              echo "FAIL: $name — missing entrypoint.sh"
+              FAILED=$((FAILED + 1))
+            fi
+
+            # Check listed in registry.yaml
+            in_registry=$(yq ".templates[] | select(.name == \"$name\") | .name" registry.yaml 2>/dev/null)
+            if [ -z "$in_registry" ]; then
+              echo "FAIL: $name — not listed in registry.yaml"
+              FAILED=$((FAILED + 1))
+            fi
+
+            # Check no secrets in files
+            if grep -rE "(sk-[a-zA-Z0-9]{20,}|1ck_[a-zA-Z0-9]+|ocv_[a-zA-Z0-9]+|plt_[a-zA-Z0-9]+)" "$dir" 2>/dev/null; then
+              echo "FAIL: $name — possible secrets detected in template files"
+              FAILED=$((FAILED + 1))
+            fi
+
+            if [ $FAILED -eq 0 ]; then
+              echo "OK: $name"
+            fi
+          done
+
+          if [ $FAILED -gt 0 ]; then
+            echo ""
+            echo "$FAILED validation error(s) found."
+            exit 1
+          fi
+          echo ""
+          echo "All templates valid."
+
+  docker-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        template: [langchain, crewai, openai-agents]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image (smoke test)
+        run: |
+          cd templates/${{ matrix.template }}
+          docker build -t test-${{ matrix.template }} .

@@ -1,0 +1,24 @@
+name: crewai
+display_name: "CrewAI"
+version: 1.0.0
+description: "Multi-agent crew with 1Claw-managed secrets"
+author: 1Claw
+language: python
+homepage: https://crewai.com
+
+docker:
+  base_image: python:3.12-slim
+  context_files:
+    - Dockerfile
+    - requirements.txt
+    - agent.py
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: crewai
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.py to define your crew's agents, tasks, and workflow.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.

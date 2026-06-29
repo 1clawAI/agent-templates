@@ -1,0 +1,25 @@
+name: mastra
+display_name: "Mastra"
+version: 1.0.0
+description: "TypeScript-first AI agent framework with 1Claw MCP for secrets and signing"
+author: 1Claw
+language: node
+homepage: https://mastra.ai
+
+docker:
+  base_image: node:22-slim
+  context_files:
+    - Dockerfile
+    - package.json
+    - tsconfig.json
+    - agent.ts
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: mastra
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.ts to customize your Mastra agent.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.

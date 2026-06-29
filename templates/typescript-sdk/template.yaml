@@ -1,0 +1,25 @@
+name: typescript-sdk
+display_name: "TypeScript SDK"
+version: 1.0.0
+description: "Plain TypeScript agent using @1claw/sdk with Shroud LLM routing"
+author: 1Claw
+language: node
+homepage: https://docs.1claw.xyz
+
+docker:
+  base_image: node:22-slim
+  context_files:
+    - Dockerfile
+    - package.json
+    - tsconfig.json
+    - agent.ts
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: typescript-sdk
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.ts to customize your TypeScript agent.
+  The @1claw/sdk client is pre-configured for vault access and signing.
+  LLM calls are routed through Shroud for inspection and redaction.

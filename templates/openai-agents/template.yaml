@@ -1,0 +1,24 @@
+name: openai-agents
+display_name: "OpenAI Agents SDK"
+version: 1.0.0
+description: "OpenAI Agents SDK with tool calling and 1Claw MCP integration"
+author: 1Claw
+language: python
+homepage: https://openai.github.io/openai-agents-python/
+
+docker:
+  base_image: python:3.12-slim
+  context_files:
+    - Dockerfile
+    - requirements.txt
+    - agent.py
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: openai-agents
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.py to customize your OpenAI agent's tools and instructions.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.

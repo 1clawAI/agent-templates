@@ -1,0 +1,25 @@
+name: elizaos
+display_name: "ElizaOS"
+version: 1.0.0
+description: "ElizaOS character runtime with 1Claw vault-backed secrets and signing"
+author: 1Claw
+language: node
+homepage: https://elizaos.ai
+
+docker:
+  base_image: node:22-slim
+  context_files:
+    - Dockerfile
+    - package.json
+    - tsconfig.json
+    - agent.ts
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: elizaos
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.ts to customize your ElizaOS character.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.

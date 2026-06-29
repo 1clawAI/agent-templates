@@ -1,0 +1,24 @@
+name: langchain
+display_name: "LangChain / LangGraph"
+version: 1.0.0
+description: "Python agent using LangChain with 1Claw MCP for secrets and signing"
+author: 1Claw
+language: python
+homepage: https://python.langchain.com
+
+docker:
+  base_image: python:3.12-slim
+  context_files:
+    - Dockerfile
+    - requirements.txt
+    - agent.py
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: langchain
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.py to customize your LangChain agent.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.
