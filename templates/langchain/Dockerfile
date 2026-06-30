@@ -9,12 +9,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir 1claw-mcp 2>/dev/null || \
-    (apt-get update && apt-get install -y --no-install-recommends nodejs npm && \
-     npm install -g @1claw/mcp@latest && \
-     rm -rf /var/lib/apt/lists/*) || \
-    echo "WARN: 1claw-mcp install deferred to runtime"
-
 COPY agent.py .
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
