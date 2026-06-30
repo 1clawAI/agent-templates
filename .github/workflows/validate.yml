@@ -133,3 +133,7 @@ jobs:
         run: |
           cd templates/${{ matrix.template }}
           docker build -t test-${{ matrix.template }} .
+
+      - name: Remove test Docker image
+        if: always()
+        run: docker rmi -f test-${{ matrix.template }} || true
