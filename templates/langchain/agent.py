@@ -37,7 +37,7 @@ def list_env_vars() -> str:
     return "\n".join(f"  {k}=***" for k in vars_list) if vars_list else "No ONECLAW_* vars set."
 
 
-def create_agent() -> AgentExecutor | None:
+def build_agent_executor():
     """Build the LangChain agent. Returns None if no LLM is configured."""
     if not LLM_VIA_SHROUD:
         return None
@@ -62,7 +62,7 @@ def create_agent() -> AgentExecutor | None:
     return AgentExecutor(agent=agent, tools=tools, verbose=False)
 
 
-agent_executor = create_agent()
+agent_executor = build_agent_executor()
 
 
 @app.route("/health")
