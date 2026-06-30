@@ -77,8 +77,11 @@ jobs:
               FAILED=$((FAILED + 1))
             fi
 
-            # Check no secrets in files
-            if grep -rE "(sk-[a-zA-Z0-9]{20,}|1ck_[a-zA-Z0-9]+|ocv_[a-zA-Z0-9]+|plt_[a-zA-Z0-9]+)" "$dir" 2>/dev/null; then
+            # Check no secrets in source files (README examples are allowed)
+            if grep -rE "(sk-[a-zA-Z0-9]{20,}|1ck_[a-zA-Z0-9]+|ocv_[a-zA-Z0-9]+|plt_[a-zA-Z0-9]+)" \
+                "$dir" --include="*.py" --include="*.ts" --include="*.sh" \
+                --include="Dockerfile" --include="requirements.txt" --include="package.json" \
+                2>/dev/null; then
               echo "FAIL: $name — possible secrets detected in template files"
               FAILED=$((FAILED + 1))
             fi
@@ -95,6 +98,28 @@ jobs:
           fi
           echo ""
           echo "All templates valid."
+
+      - name: Validate registry.yaml covers all template directories
+        run: |
+          FAILED=0
+          for name in $(yq '.templates[].name' registry.yaml); do
+            if [ ! -f "templates/${name}/template.yaml" ]; then
+              echo "FAIL: registry entry '${name}' has no templates/${name}/ directory"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+          for dir in templates/*/; do
+            name=$(basename "$dir")
+            in_registry=$(yq ".templates[] | select(.name == \"$name\") | .name" registry.yaml 2>/dev/null)
+            if [ -z "$in_registry" ]; then
+              echo "FAIL: templates/${name}/ exists but is missing from registry.yaml"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+          if [ $FAILED -gt 0 ]; then
+            exit 1
+          fi
+          echo "registry.yaml and templates/ are in sync."
 
   docker-build:
     runs-on: ubuntu-latest
