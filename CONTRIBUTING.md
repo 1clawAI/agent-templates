@@ -1,14 +1,19 @@
 # Contributing a Template
 
-Thanks for contributing to 1Claw agent templates! This guide explains how to
-add a new framework integration.
+Thanks for contributing to 1Claw agent templates! This document is the **technical reference** (manifest schema, Dockerfile rules, entrypoint pattern).
+
+**Start here for the full walkthrough:** [docs.1claw.xyz — Add an agent template](https://docs.1claw.xyz/docs/guides/agent-templates)
+
+The [README](./README.md) has a concise PR checklist and links back to this file.
 
 ## Quick start
 
-1. Fork this repo.
-2. Create a directory under `templates/<your-framework>/`.
+1. Fork [1clawAI/agent-templates](https://github.com/1clawAI/agent-templates).
+2. Copy `templates/langchain/` (Python) or `templates/typescript-sdk/` (TypeScript) to `templates/<your-framework>/`.
 3. Add the required files (see below).
-4. Open a pull request — CI validates the manifest and runs a Docker build smoke test.
+4. Add an entry to [`registry.yaml`](./registry.yaml) (`name` must match the directory).
+5. Run `docker build` in your template directory and verify `/health`.
+6. Open a pull request — CI validates the manifest and runs a Docker build smoke test.
 
 ## Required files
 
@@ -151,6 +156,16 @@ The CI workflow checks:
 3. No secrets or credentials in template files
 4. Template `name` matches the directory name
 5. The template is listed in `registry.yaml`
+
+Add new templates to the root `registry.yaml`:
+
+```yaml
+  - name: my-framework
+    display_name: "My Framework"
+    version: 1.0.0
+    language: python
+    description: "Shown in 1claw spawn --list"
+```
 
 ## Code of conduct
 
