@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        template: [langchain, crewai, openai-agents]
+        template: [langchain, crewai, openai-agents, agentkit, smolagents, llamaindex, pydantic-ai, agno, coder, typescript-sdk, mastra, elizaos]
     steps:
       - uses: actions/checkout@v4
 

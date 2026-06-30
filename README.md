@@ -24,16 +24,27 @@ See the [CLI guide](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn
 
 ### Shipped templates
 
-| Template | Framework | Language | Status |
-|----------|-----------|----------|--------|
-| `langchain` | LangChain / LangGraph | Python | ✅ |
-| `crewai` | CrewAI | Python | ✅ |
-| `openai-agents` | OpenAI Agents SDK | Python | ✅ |
-| `typescript-sdk` | @1claw/sdk + AI SDK | TypeScript | ✅ |
-| `mastra` | Mastra | TypeScript | ✅ |
-| `elizaos` | ElizaOS | TypeScript | ✅ |
+**Python:**
 
-`registry.yaml` also lists planned entries (`agentkit`, `smolagents`, etc.) that are not yet implemented — only directories under `templates/` with a full file set are buildable.
+| Template | Framework | Status |
+|----------|-----------|--------|
+| `langchain` | LangChain / LangGraph | ✅ |
+| `crewai` | CrewAI | ✅ |
+| `openai-agents` | OpenAI Agents SDK | ✅ |
+| `agentkit` | Coinbase AgentKit | ✅ |
+| `smolagents` | HuggingFace smolagents | ✅ |
+| `llamaindex` | LlamaIndex | ✅ |
+| `pydantic-ai` | Pydantic AI | ✅ |
+| `agno` | Agno | ✅ |
+| `coder` | Coder | ✅ |
+
+**TypeScript:**
+
+| Template | Framework | Status |
+|----------|-----------|--------|
+| `typescript-sdk` | @1claw/sdk + AI SDK | ✅ |
+| `mastra` | Mastra | ✅ |
+| `elizaos` | ElizaOS | ✅ |
 
 ---
 

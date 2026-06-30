@@ -1,0 +1,24 @@
+name: pydantic-ai
+display_name: "Pydantic AI"
+version: 1.0.0
+description: "Type-safe Python agent with structured output"
+author: 1Claw
+language: python
+homepage: https://ai.pydantic.dev
+
+docker:
+  base_image: python:3.12-slim
+  context_files:
+    - Dockerfile
+    - requirements.txt
+    - agent.py
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: pydantic-ai
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.py to define your typed tools and result models.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.

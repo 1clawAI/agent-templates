@@ -1,0 +1,24 @@
+name: llamaindex
+display_name: "LlamaIndex"
+version: 1.0.0
+description: "LlamaIndex agent with tool integration and 1Claw MCP"
+author: 1Claw
+language: python
+homepage: https://docs.llamaindex.ai
+
+docker:
+  base_image: python:3.12-slim
+  context_files:
+    - Dockerfile
+    - requirements.txt
+    - agent.py
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: llamaindex
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.py to customize your LlamaIndex agent's tools and data sources.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.

@@ -1,0 +1,24 @@
+name: smolagents
+display_name: "HuggingFace smolagents"
+version: 1.0.0
+description: "HuggingFace lightweight agents with 1Claw secrets"
+author: 1Claw
+language: python
+homepage: https://huggingface.co/docs/smolagents
+
+docker:
+  base_image: python:3.12-slim
+  context_files:
+    - Dockerfile
+    - requirements.txt
+    - agent.py
+    - entrypoint.sh
+  env:
+    ONECLAW_FRAMEWORK: smolagents
+  health_endpoint: /health
+  health_port: 3000
+
+post_spawn_message: |
+  Edit agent.py to add custom tools and change the agent type.
+  Your 1Claw MCP server is available at the daemon socket.
+  LLM calls are routed through Shroud for inspection and redaction.
