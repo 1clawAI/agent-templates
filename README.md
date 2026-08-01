@@ -22,6 +22,17 @@ npm install -g @1claw/cli   # or: brew install 1clawAI/tap/oneclaw
 
 See the [CLI guide](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn) for LLM options (BYOK, Token Billing, offline mode).
 
+### v0.42 features available in all templates
+
+All Python templates now include the `oneclaw` SDK (v0.42+), giving spawned agents access to:
+
+- **Agent Memory** — `client.memory.store()` / `client.memory.search()` for persistent vector memory across sessions
+- **Automations** — `client.automations.create()` for cron-based scheduled tasks (secret rotation, health checks)
+- **Runtimes** — `client.runtimes.create()` for managed deployment with auto-scaling
+- **Discovery** — `client.discovery.publish()` to list your agent in the 1Claw directory
+
+These complement the MCP-based secret fetching and Shroud LLM proxy already wired in each template.
+
 ### Shipped templates
 
 **Python:**

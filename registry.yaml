@@ -2,19 +2,19 @@ version: 1
 templates:
   - name: langchain
     display_name: "LangChain / LangGraph"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "Python agent using LangChain with 1Claw MCP for secrets and signing"
+    description: "Python agent using LangChain with 1Claw MCP for secrets, signing, memory, and automations"
   - name: crewai
     display_name: "CrewAI"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "Multi-agent crew with 1Claw-managed secrets"
+    description: "Multi-agent crew with 1Claw-managed secrets and memory"
   - name: openai-agents
     display_name: "OpenAI Agents SDK"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "OpenAI Agents SDK with tool calling and 1Claw MCP integration"
+    description: "OpenAI Agents SDK with tool calling, 1Claw MCP integration, and memory"
   - name: elizaos
     display_name: "ElizaOS"
     version: 1.0.0
@@ -22,29 +22,29 @@ templates:
     description: "ElizaOS character runtime with vault-backed secrets"
   - name: agentkit
     display_name: "Coinbase AgentKit"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "Coinbase AgentKit for onchain agents with 1Claw key management"
+    description: "Coinbase AgentKit for onchain agents with 1Claw key management and automations"
   - name: smolagents
     display_name: "HuggingFace smolagents"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "HuggingFace lightweight agents with 1Claw secrets"
+    description: "HuggingFace lightweight agents with 1Claw secrets and memory"
   - name: llamaindex
     display_name: "LlamaIndex"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "LlamaIndex agent with tool integration and 1Claw MCP"
+    description: "LlamaIndex agent with tool integration, 1Claw MCP, and memory"
   - name: pydantic-ai
     display_name: "Pydantic AI"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "Type-safe Python agent with structured output"
+    description: "Type-safe Python agent with structured output and 1Claw memory"
   - name: agno
     display_name: "Agno"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "Agno multi-modal agent with 1Claw secrets"
+    description: "Agno multi-modal agent with 1Claw secrets and memory"
   - name: mastra
     display_name: "Mastra"
     version: 1.0.0
@@ -57,6 +57,6 @@ templates:
     description: "Plain TypeScript agent using @1claw/sdk with Shroud LLM routing"
   - name: coder
     display_name: "Coder"
-    version: 1.0.0
+    version: 1.1.0
     language: python
-    description: "Coder workspace automation agent"
+    description: "Coder workspace automation agent with 1Claw secrets"

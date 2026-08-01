@@ -3,3 +3,4 @@ coinbase-agentkit-langchain>=0.2.0
 langchain-openai>=0.2.0
 langgraph>=0.2.0
 flask>=3.0.0
+oneclaw>=0.42.0
