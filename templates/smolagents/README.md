@@ -16,7 +16,7 @@ Or with your own API key:
 
 ## What's included
 
-- **agent.py** — CodeAgent with example tools (hello_world, list_env_vars)
+- **agent.py** — ToolCallingAgent by default (set `ONECLAW_SMOLAGENTS_CODE_MODE=1` for CodeAgent)
 - **Flask server** on port 3000 with `/chat` and `/health` endpoints
 - **Shroud integration** — LLM calls are routed through Shroud for inspection
 - **MCP server** — started automatically for tool access to 1Claw vault

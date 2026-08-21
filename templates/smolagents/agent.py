@@ -7,13 +7,20 @@ The container never sees raw API keys — they are injected by the host daemon.
 
 import os
 from flask import Flask, request, jsonify
-from smolagents import CodeAgent, tool, OpenAIServerModel
+from smolagents import CodeAgent, ToolCallingAgent, tool, OpenAIServerModel
 
 app = Flask(__name__)
 
 SHROUD_URL = os.environ.get("ONECLAW_SHROUD_URL", "https://shroud.1claw.xyz")
 LLM_VIA_SHROUD = os.environ.get("ONECLAW_LLM_VIA_SHROUD", "").lower() == "true"
 MODEL = os.environ.get("ONECLAW_SHROUD_MODEL", "gpt-4o-mini")
+# CodeAgent executes LLM-generated Python. Off by default; only enable inside
+# an isolated container with a human-set env flag.
+CODE_MODE = os.environ.get("ONECLAW_SMOLAGENTS_CODE_MODE", "").lower() in (
+    "1",
+    "true",
+    "yes",
+)
 
 
 @tool
@@ -44,7 +51,8 @@ def create_agent():
         api_key="shroud-injected",
     )
 
-    return CodeAgent(
+    agent_cls = CodeAgent if CODE_MODE else ToolCallingAgent
+    return agent_cls(
         tools=[hello_world, list_env_vars],
         model=model,
     )
