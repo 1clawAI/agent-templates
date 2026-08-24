@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - 'templates/**'
+      - 'shared/**'
       - 'registry.yaml'
   push:
     branches: [main]
     paths:
       - 'templates/**'
+      - 'shared/**'
       - 'registry.yaml'
 
 jobs:
@@ -131,8 +133,7 @@ jobs:
 
       - name: Build Docker image (smoke test)
         run: |
-          cd templates/${{ matrix.template }}
-          docker build -t test-${{ matrix.template }} .
+          docker build -f templates/${{ matrix.template }}/Dockerfile -t test-${{ matrix.template }} .
 
       - name: Remove test Docker image
         if: always()

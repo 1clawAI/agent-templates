@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
+COPY shared /app/shared
+RUN chmod +x /app/shared/start-with-chat-ui.sh
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 

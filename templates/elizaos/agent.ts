@@ -11,7 +11,7 @@ const SHROUD_URL = process.env.ONECLAW_SHROUD_URL ?? "https://shroud.1claw.xyz";
 const LLM_VIA_SHROUD = process.env.ONECLAW_LLM_VIA_SHROUD === "true";
 const PROVIDER = process.env.ONECLAW_SHROUD_PROVIDER ?? "openai";
 const MODEL = process.env.ONECLAW_SHROUD_MODEL ?? "gpt-4o-mini";
-const PORT = parseInt(process.env.CHAT_UI_PORT ?? "3000", 10);
+const PORT = parseInt(process.env.AGENT_INTERNAL_PORT ?? "3001", 10);
 
 const conversationHistory: { role: "user" | "assistant"; content: string }[] = [];
 

@@ -1,10 +1,13 @@
 FROM node:22-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl tini && \
+    curl tini python3 && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+COPY shared /app/shared
+RUN chmod +x /app/shared/start-with-chat-ui.sh
 
 COPY package.json tsconfig.json ./
 RUN npm install --omit=dev 2>/dev/null || npm install

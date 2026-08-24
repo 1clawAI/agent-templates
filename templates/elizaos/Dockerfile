@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
+COPY shared /app/shared
+RUN chmod +x /app/shared/start-with-chat-ui.sh
+
 COPY package.json tsconfig.json ./
 RUN npm install --omit=dev 2>/dev/null || npm install
 

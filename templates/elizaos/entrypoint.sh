@@ -30,5 +30,5 @@ if [ -S "$DAEMON_SOCKET" ]; then
     fi
 fi
 
-echo "Ready: http://0.0.0.0:${CHAT_UI_PORT}"
-exec npx tsx agent.ts
+# Chat UI starts in start-with-chat-ui.sh
+exec /app/shared/start-with-chat-ui.sh npx tsx agent.ts

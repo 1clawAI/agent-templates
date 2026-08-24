@@ -16,7 +16,7 @@ import { z } from "zod";
 const SHROUD_URL = process.env.ONECLAW_SHROUD_URL ?? "https://shroud.1claw.xyz";
 const LLM_VIA_SHROUD = process.env.ONECLAW_LLM_VIA_SHROUD === "true";
 const MODEL = process.env.ONECLAW_SHROUD_MODEL ?? "gpt-4o-mini";
-const PORT = parseInt(process.env.CHAT_UI_PORT ?? "3000", 10);
+const PORT = parseInt(process.env.AGENT_INTERNAL_PORT ?? "3001", 10);
 const DAEMON_SOCKET = process.env.ONECLAW_DAEMON_SOCKET ?? "/run/1claw/daemon.sock";
 const SECRET_PREFIX = process.env.ONECLAW_SECRET_PREFIX ?? "";
 const SHROUD_SECRET = process.env.ONECLAW_SHROUD_SECRET ?? "";

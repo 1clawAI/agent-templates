@@ -87,8 +87,11 @@ Your Dockerfile should:
 2. **Never bake secrets into the image.** API keys and credentials are injected
    at runtime by the daemon.
 
-3. **Expose port 3000** (or whatever `health_port` you declare) for the health
-   check.
+3. **Expose port 3000** (or whatever `health_port` you declare) for the **shared spawn chat UI**.
+   The framework agent listens on `AGENT_INTERNAL_PORT` (default `3001`); the entrypoint
+   runs `shared/start-with-chat-ui.sh`, which serves an interactive browser chat on port
+   3000 and forwards messages to your agent's `POST /chat` handler (or Shroud via the
+   host daemon when the agent has no LLM wired).
 
 4. **Install the 1Claw MCP server** if your agent needs tool access:
    ```dockerfile
@@ -128,8 +131,21 @@ if command -v 1claw-mcp >/dev/null 2>&1; then
         1claw-mcp --local 2>/tmp/mcp.log &
 fi
 
-# Start your agent
-exec python agent.py  # or node agent.ts, etc.
+# Start your agent on AGENT_INTERNAL_PORT (default 3001); chat UI binds CHAT_UI_PORT (3000).
+exec /app/shared/start-with-chat-ui.sh python agent.py  # or node agent.ts, etc.
+```
+
+The shared chat UI (`shared/spawn_chat_ui.py`) serves:
+
+- `GET /` — interactive browser chat (message in, response out)
+- `GET /health` — spawn health probe (port 3000)
+- `POST /api/chat` — forwards to `http://127.0.0.1:3001/chat`, then falls back to Shroud via the daemon `/proxy`
+
+Build Docker images from the **repository root** so `COPY shared` resolves:
+
+```bash
+docker build -f templates/my-framework/Dockerfile -t test-my-framework .
+curl http://localhost:3000/health
 ```
 
 ## Testing your template
@@ -137,14 +153,15 @@ exec python agent.py  # or node agent.ts, etc.
 Before submitting:
 
 ```bash
-# Build the image
-docker build -t test-template templates/my-framework/
+# Build from repo root (shared/ must be in context)
+docker build -f templates/my-framework/Dockerfile -t test-template .
 
-# Run with a mock daemon socket
+# Run with a mock daemon socket (chat UI on 3000)
 docker run --rm -p 3000:3000 test-template
 
-# Verify health
+# Verify health + browser chat UI
 curl http://localhost:3000/health
+open http://localhost:3000
 ```
 
 ## CI validation

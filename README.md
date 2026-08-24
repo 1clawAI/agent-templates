@@ -2,7 +2,7 @@
 
 Public template registry for [`1claw spawn`](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn) — framework-specific Docker agents pre-wired with 1Claw MCP and Shroud.
 
-Each template includes a **Dockerfile**, starter agent code, and an **entrypoint** that mounts the host daemon socket. The container **never sees raw API keys**; credentials are injected at runtime by the 1Claw daemon on the host.
+Each template includes a **Dockerfile**, starter agent code, and an **entrypoint** that mounts the host daemon socket. A **shared browser chat UI** on port 3000 lets you test any template immediately after `1claw spawn` — messages route to the framework agent (port 3001) or Shroud via the daemon when no LLM is wired in the agent. The container **never sees raw API keys**; credentials are injected at runtime by the 1Claw daemon on the host.
 
 **Full contributor guide (docs):** [docs.1claw.xyz — Add an agent template](https://docs.1claw.xyz/docs/guides/agent-templates)
 
@@ -107,12 +107,12 @@ We welcome community PRs for new frameworks and improvements to existing templat
      description: "One-line summary for 1claw spawn --list"
    ```
 
-4. **Test locally:**
+4. **Test locally** (build from repo root so `shared/` is in the Docker context):
 
    ```bash
-   cd templates/my-framework
-   docker build -t test-my-framework .
+   docker build -f templates/my-framework/Dockerfile -t test-my-framework .
    docker run --rm -p 3000:3000 test-my-framework
+   open http://localhost:3000    # interactive chat UI
    curl http://localhost:3000/health
    ```
 
@@ -134,8 +134,8 @@ We welcome community PRs for new frameworks and improvements to existing templat
 
 - **No secrets in the repo.** Never commit API keys, agent keys, or real vault IDs.
 - **Daemon socket, not env secrets.** Templates must work with `ONECLAW_DAEMON_SOCKET=/run/1claw/daemon.sock`; do not `ENV` or `COPY` credentials.
-- **Health endpoint.** Expose `/health` (or declare another path in `template.yaml`) on port `3000` by default.
-- **LLM via Shroud.** Route provider calls through Shroud when `ONECLAW_LLM_VIA_SHROUD=true` (see `entrypoint.sh` in existing templates).
+- **Health endpoint.** Expose `/health` on port `3000` via the shared spawn chat UI (`shared/start-with-chat-ui.sh`).
+- **LLM via Shroud.** Route provider calls through Shroud when `ONECLAW_LLM_VIA_SHROUD=true` (see `entrypoint.sh` in existing templates). Use the daemon `/proxy` path in the shared chat UI fallback — never put real keys in the container.
 
 ### Deep reference
 
@@ -154,6 +154,10 @@ Open a [GitHub Discussion](https://github.com/1clawAI/agent-templates/discussion
 ```
 agent-templates/
 ├── registry.yaml           # Index consumed by 1claw spawn --list
+├── shared/                 # Spawn chat UI (browser test harness for all templates)
+│   ├── spawn_chat_ui.py
+│   ├── index.html
+│   └── start-with-chat-ui.sh
 ├── templates/
 │   ├── langchain/          # One directory per framework
 │   │   ├── template.yaml

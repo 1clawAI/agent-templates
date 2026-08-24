@@ -100,6 +100,6 @@ Credentials stay in the host daemon — this container never sees secret values.
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("CHAT_UI_PORT", "3000"))
+    port = int(os.environ.get("AGENT_INTERNAL_PORT", "3001"))
     print(f"smolagents agent listening on http://0.0.0.0:{port}")
     app.run(host="0.0.0.0", port=port)

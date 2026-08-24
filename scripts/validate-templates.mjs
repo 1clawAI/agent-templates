@@ -112,10 +112,16 @@ for (const name of diskNames) {
     if (!dockerfile.includes("HEALTHCHECK") || !dockerfile.includes("/health")) {
         fail(`${name} — Dockerfile missing HEALTHCHECK on /health`);
     }
+    if (!dockerfile.includes("COPY shared")) {
+        fail(`${name} — Dockerfile must COPY shared spawn chat UI`);
+    }
 
     const entrypoint = readFileSync(join(dir, "entrypoint.sh"), "utf-8");
     if (!entrypoint.includes("ONECLAW_LLM_VIA_SHROUD")) {
         fail(`${name} — entrypoint.sh missing Shroud routing`);
+    }
+    if (!entrypoint.includes("start-with-chat-ui.sh")) {
+        fail(`${name} — entrypoint.sh must use shared start-with-chat-ui.sh`);
     }
 
     const scanFiles = [

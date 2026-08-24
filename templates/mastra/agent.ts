@@ -63,7 +63,7 @@ async function handleChat(message: string): Promise<string> {
   return text;
 }
 
-const PORT = parseInt(process.env.CHAT_UI_PORT ?? "3000", 10);
+const PORT = parseInt(process.env.AGENT_INTERNAL_PORT ?? "3001", 10);
 
 const server = createServer(async (req, res) => {
   if (req.url === "/health" && req.method === "GET") {
