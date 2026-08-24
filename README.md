@@ -22,6 +22,16 @@ npm install -g @1claw/cli   # or: brew install 1clawAI/tap/oneclaw
 
 See the [CLI guide](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn) for LLM options (BYOK, Token Billing, offline mode).
 
+### v0.56 platform features (configure on agents)
+
+Spawned agents use the 1Claw API. Enable on agent records via dashboard or CLI:
+
+- **Graduated HITL** — Transactions, sign intents, execution bindings may require human approval.
+- **Human Factor Auth** — Treasury send/swap passkey step-up (human wallets; `@1claw/wallet-react`).
+- **Guardrail governance** — Shadow/enforce execution guardrails, revision history, replay dry-runs.
+- **Safe foundation** — Counterfactual Gnosis Safe accounts (`1claw agent accounts migrate`).
+- **Multichain signing** — Unchanged deps in Vault/Shroud: `rust-bitcoin`, `solana-sdk` v4, `xrpl-rust` 1.1.0.
+
 ### v0.42 features available in all templates
 
 All Python templates now include the `oneclaw` SDK (v0.42+), giving spawned agents access to:
