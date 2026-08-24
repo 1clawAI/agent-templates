@@ -5,8 +5,11 @@ Plain TypeScript agent using [@1claw/sdk](https://www.npmjs.com/package/@1claw/s
 ## Quick start
 
 ```bash
+# spawn starts the host daemon automatically (no separate `1claw daemon start` needed)
 1claw spawn typescript-sdk --agent-key ocv_YOUR_KEY
 ```
+
+Key-only `ocv_…` auth is supported — spawn resolves your agent ID via Vault token exchange and stores Shroud credentials in the host daemon. The container routes LLM calls through the daemon `/proxy` endpoint; it never sees raw keys.
 
 ## What's included
 
