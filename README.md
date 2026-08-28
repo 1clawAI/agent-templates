@@ -1,10 +1,10 @@
 # 1Claw Agent Templates
 
-Public template registry for [`1claw spawn`](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn) — framework-specific Docker agents pre-wired with 1Claw MCP and Shroud.
+Public template registry for [`1claw spawn`](https://docs.1claw.co/docs/guides/cli#agent-templates-spawn) — framework-specific Docker agents pre-wired with 1Claw MCP and Shroud.
 
 Each template includes a **Dockerfile**, starter agent code, and an **entrypoint** that mounts the host daemon socket. A **shared browser chat UI** on port 3000 lets you test any template immediately after `1claw spawn` — messages route to the framework agent (port 3001) or Shroud via the daemon when no LLM is wired in the agent. The container **never sees raw API keys**; credentials are injected at runtime by the 1Claw daemon on the host.
 
-**Full contributor guide (docs):** [docs.1claw.xyz — Add an agent template](https://docs.1claw.xyz/docs/guides/agent-templates)
+**Full contributor guide (docs):** [docs.1claw.co — Add an agent template](https://docs.1claw.co/docs/guides/agent-templates)
 
 ---
 
@@ -20,7 +20,7 @@ npm install -g @1claw/cli   # or: brew install 1clawAI/tap/oneclaw
 1claw spawn --refresh     # pull latest templates from this repo
 ```
 
-See the [CLI guide](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn) for LLM options (BYOK, Token Billing, offline mode).
+See the [CLI guide](https://docs.1claw.co/docs/guides/cli#agent-templates-spawn) for LLM options (BYOK, Token Billing, offline mode).
 
 ### v0.56 platform features (configure on agents)
 
@@ -79,7 +79,7 @@ We welcome community PRs for new frameworks and improvements to existing templat
 - Copy an existing template as a starting point:
   - **Python:** `templates/langchain/`
   - **TypeScript:** `templates/typescript-sdk/` or `templates/mastra/`
-- Read the [docs contributor guide](https://docs.1claw.xyz/docs/guides/agent-templates) for the full walkthrough.
+- Read the [docs contributor guide](https://docs.1claw.co/docs/guides/agent-templates) for the full walkthrough.
 
 ### Step-by-step
 
@@ -140,12 +140,12 @@ We welcome community PRs for new frameworks and improvements to existing templat
 ### Deep reference
 
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** — manifest schema, Dockerfile guidelines, entrypoint pattern
-- **[Docs: Add an agent template](https://docs.1claw.xyz/docs/guides/agent-templates)** — step-by-step guide with examples
-- **[CLI spawn docs](https://docs.1claw.xyz/docs/guides/cli#agent-templates-spawn)** — user-facing `1claw spawn` reference
+- **[Docs: Add an agent template](https://docs.1claw.co/docs/guides/agent-templates)** — step-by-step guide with examples
+- **[CLI spawn docs](https://docs.1claw.co/docs/guides/cli#agent-templates-spawn)** — user-facing `1claw spawn` reference
 
 ### Questions?
 
-Open a [GitHub Discussion](https://github.com/1clawAI/agent-templates/discussions) or issue. For security concerns, email ops@1claw.xyz.
+Open a [GitHub Discussion](https://github.com/1clawAI/agent-templates/discussions) or issue. For security concerns, email ops@1claw.co.
 
 ---
 
