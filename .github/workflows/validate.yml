@@ -133,7 +133,15 @@ jobs:
 
       - name: Build Docker image (smoke test)
         run: |
-          docker build -f templates/${{ matrix.template }}/Dockerfile -t test-${{ matrix.template }} .
+          # Mirror what `1claw spawn` does before building: the context is
+          # the template directory, with shared/ copied in beside it. The
+          # Dockerfiles COPY both template-relative files (agent.ts,
+          # entrypoint.sh) and shared/, so neither the repo root nor a bare
+          # template directory works as a context on its own.
+          ctx="$(mktemp -d)/${{ matrix.template }}"
+          cp -R "templates/${{ matrix.template }}" "$ctx"
+          cp -R shared "$ctx/shared"
+          docker build -t test-${{ matrix.template }} "$ctx"
 
       - name: Remove test Docker image
         if: always()

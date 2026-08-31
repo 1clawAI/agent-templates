@@ -8,7 +8,7 @@
     "dev": "tsx watch agent.ts"
   },
   "dependencies": {
-    "@elizaos/core": "^0.2.0",
+    "@elizaos/core": "^1.7.2",
     "@1claw/plugin-elizaos": "latest",
     "@ai-sdk/openai": "^1.0.0",
     "ai": "^4.0.0",
