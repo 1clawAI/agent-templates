@@ -14,7 +14,7 @@ from langgraph.prebuilt import create_react_agent
 
 app = Flask(__name__)
 
-SHROUD_URL = os.environ.get("ONECLAW_SHROUD_URL", "https://shroud.1claw.xyz")
+SHROUD_URL = os.environ.get("ONECLAW_SHROUD_URL", "https://shroud.1claw.co")
 LLM_VIA_SHROUD = os.environ.get("ONECLAW_LLM_VIA_SHROUD", "").lower() == "true"
 MODEL = os.environ.get("ONECLAW_SHROUD_MODEL", "gpt-4o-mini")
 

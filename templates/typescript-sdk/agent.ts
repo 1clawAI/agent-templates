@@ -13,7 +13,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { generateText, tool } from "ai";
 import { z } from "zod";
 
-const SHROUD_URL = process.env.ONECLAW_SHROUD_URL ?? "https://shroud.1claw.xyz";
+const SHROUD_URL = process.env.ONECLAW_SHROUD_URL ?? "https://shroud.1claw.co";
 const LLM_VIA_SHROUD = process.env.ONECLAW_LLM_VIA_SHROUD === "true";
 const MODEL = process.env.ONECLAW_SHROUD_MODEL ?? "gpt-4o-mini";
 const PORT = parseInt(process.env.AGENT_INTERNAL_PORT ?? "3001", 10);
@@ -28,7 +28,7 @@ const conversationHistory: { role: "user" | "assistant"; content: string }[] = [
 const claw = new OneclawClient({
   apiKey: process.env.ONECLAW_AGENT_API_KEY,
   agentId: process.env.ONECLAW_AGENT_ID,
-  baseUrl: process.env.ONECLAW_BASE_URL ?? "https://api.1claw.xyz",
+  baseUrl: process.env.ONECLAW_BASE_URL ?? "https://api.1claw.co",
 });
 
 function daemonRequest(

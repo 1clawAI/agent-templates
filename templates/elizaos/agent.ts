@@ -7,7 +7,7 @@
 
 import { createServer } from "node:http";
 
-const SHROUD_URL = process.env.ONECLAW_SHROUD_URL ?? "https://shroud.1claw.xyz";
+const SHROUD_URL = process.env.ONECLAW_SHROUD_URL ?? "https://shroud.1claw.co";
 const LLM_VIA_SHROUD = process.env.ONECLAW_LLM_VIA_SHROUD === "true";
 const PROVIDER = process.env.ONECLAW_SHROUD_PROVIDER ?? "openai";
 const MODEL = process.env.ONECLAW_SHROUD_MODEL ?? "gpt-4o-mini";

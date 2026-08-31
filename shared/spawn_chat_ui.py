@@ -32,7 +32,7 @@ MODE = os.environ.get(
 )
 
 LLM_VIA_SHROUD = os.environ.get("ONECLAW_LLM_VIA_SHROUD", "").lower() == "true"
-SHROUD_URL = (os.environ.get("ONECLAW_SHROUD_URL") or "https://shroud.1claw.xyz").rstrip("/")
+SHROUD_URL = (os.environ.get("ONECLAW_SHROUD_URL") or "https://shroud.1claw.co").rstrip("/")
 SHROUD_SECRET = os.environ.get("ONECLAW_SHROUD_SECRET", "")
 SHROUD_API_KEY_SECRET = os.environ.get("ONECLAW_SHROUD_API_KEY_SECRET", "")
 SHROUD_PROVIDER = os.environ.get("ONECLAW_SHROUD_PROVIDER", "openai")
