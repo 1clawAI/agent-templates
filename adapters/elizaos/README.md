@@ -1,6 +1,6 @@
 # 1Claw ElizaOS Memory Adapter
 
-ElizaOS `MemoryAdapter` implementation backed by [1Claw Agent Memory](https://docs.1claw.xyz/docs/guides/agent-memory).
+ElizaOS `MemoryAdapter` implementation backed by [1Claw Agent Memory](https://docs.1claw.co/docs/guides/agent-memory).
 
 ## Installation
 

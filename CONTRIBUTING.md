@@ -2,7 +2,7 @@
 
 Thanks for contributing to 1Claw agent templates! This document is the **technical reference** (manifest schema, Dockerfile rules, entrypoint pattern).
 
-**Start here for the full walkthrough:** [docs.1claw.xyz — Add an agent template](https://docs.1claw.xyz/docs/guides/agent-templates)
+**Start here for the full walkthrough:** [docs.1claw.co — Add an agent template](https://docs.1claw.co/docs/guides/agent-templates)
 
 The [README](./README.md) has a concise PR checklist and links back to this file.
 

@@ -1,6 +1,6 @@
 # 1Claw CrewAI Storage Adapter
 
-CrewAI storage backend backed by [1Claw Agent Memory](https://docs.1claw.xyz/docs/guides/agent-memory).
+CrewAI storage backend backed by [1Claw Agent Memory](https://docs.1claw.co/docs/guides/agent-memory).
 
 ## Installation
 

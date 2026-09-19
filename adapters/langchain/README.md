@@ -1,6 +1,6 @@
 # 1Claw LangChain Memory Adapter
 
-LangChain `BaseMemory` implementation backed by [1Claw Agent Memory](https://docs.1claw.xyz/docs/guides/agent-memory).
+LangChain `BaseMemory` implementation backed by [1Claw Agent Memory](https://docs.1claw.co/docs/guides/agent-memory).
 
 ## Installation
 

@@ -4,7 +4,7 @@ version: 1.0.0
 description: "Plain TypeScript agent using @1claw/sdk with Shroud LLM routing"
 author: 1Claw
 language: node
-homepage: https://docs.1claw.xyz
+homepage: https://docs.1claw.co
 
 docker:
   base_image: node:22-slim
