@@ -12,11 +12,16 @@ function jsonResponse(data: unknown, status = 200) {
   };
 }
 
+// Every describe reads `mockFetch.mock.calls[0]`; without a shared reset the
+// scratch/semantic cases saw the first describe's last call instead of their own.
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
 describe("OneclawMemoryAdapter", () => {
   let memory: OneclawMemoryAdapter;
 
   beforeEach(() => {
-    vi.clearAllMocks();
     memory = new OneclawMemoryAdapter({
       namespace: "test",
       sidecarUrl: "http://localhost:9999",
